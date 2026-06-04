@@ -1,29 +1,34 @@
 # machine_learning_feb2026
-Project for Machine Learning II course
+Project for Machine Learning II course | Group 9
+Authors: Inês Chainho & Pedro Ambar
+Dataset: Customer Segmentation Dataset
+Information: Demographics, spending behavior and purchasing history per customer
+Problem: Unsupervised Learning (K-Means, HDBSCAN, Association Rules, Visualization through PCA/UMAP)
 
-Dataset: Costumer Information
-
-Problem: Unsupervized Learning (k-means, model2)
-
-Model Ideas: Clustering (k-Means and Hierarchical), DBS, Mean-Shift, SOM, 
-
-Variables:
-x   Column                            Orig_Dtype New_Dtype Variable Type
-0   customer_id                       object     uint16    categorical(nominal); primary id; unique
-1   BALANCE                           float64    float64   quantitative(continuous)
-2   BALANCE_FREQUENCY                 float64    float32   quantitative(continuous)
-3   PURCHASES                         float64    float32   quantitative(continuous)
-4   ONEOFF_PURCHASES                  float64    float32   quantitative(continuous)
-5   INSTALLMENTS_PURCHASES            float64    float32   quantitative(continuous)
-6   CASH_ADVANCE                      float64    float64   quantitative(continuous)
-7   PURCHASES_FREQUENCY               float64    float32   quantitative(continuous)
-8   ONEOFF_PURCHASES_FREQUENCY        float64    float32   quantitative(continuous)
-9   PURCHASES_INSTALLMENTS_FREQUENCY  float64    float32   quantitative(continuous)
-10  CASH_ADVANCE_FREQUENCY            float64    float32   quantitative(continuous)
-11  CASH_ADVANCE_TRX                  int64      uint8     quantitative(continuous)
-12  PURCHASES_TRX                     int64      uint16    quantitative(continuous)
-13  CREDIT_LIMIT                      float64    uint16    quantitative(continuous)
-14  PAYMENTS                          float64    float64   quantitative(continuous)
-15  MINIMUM_PAYMENTS                  float64    float64   quantitative(continuous)
-16  PRC_FULL_PAYMENT                  float64    float32   quantitative(continuous)
-17  TENURE                            int64      uint8     quantitative(discrete)
+Variables — customer_info:
+x   Column                                     Dtype     Variable Type              Meaning
+0   customer_id                                uint16    categorical(nominal)       Unique identifier of the customer.
+1   customer_name                              str       categorical(nominal)       Name of the customer (contains degree level).
+2   customer_gender                            uint8     categorical(nominal)       Gender of the customer (0, 1).
+3   customer_birthdate                         float16   categorical(nominal)       Birth date of the customer (used to derive age).
+4   kids_home                                  uint8     quantitative(discrete)     Number of kids at home.
+5   teens_home                                 uint8     quantitative(discrete)     Number of teens at home.
+6   number_complaints                          uint8     quantitative(discrete)     Number of formal complaints made by the customer.
+7   distinct_stores_visited                    uint8     quantitative(discrete)     Number of distinct stores visited by the customer.
+8   lifetime_spend_groceries                   uint32    quantitative(continuous)   Total lifetime spend on groceries.
+9   lifetime_spend_electronics                 uint16    quantitative(continuous)   Total lifetime spend on electronics.
+10  lifetime_spend_vegetables                  uint16    quantitative(continuous)   Total lifetime spend on vegetables.
+11  lifetime_spend_nonalcohol_drinks           uint16    quantitative(continuous)   Total lifetime spend on non-alcoholic drinks.
+12  lifetime_spend_alcohol_drinks              uint16    quantitative(continuous)   Total lifetime spend on alcoholic drinks.
+13  lifetime_spend_meat                        uint16    quantitative(continuous)   Total lifetime spend on meat.
+14  lifetime_spend_fish                        uint16    quantitative(continuous)   Total lifetime spend on fish.
+15  lifetime_spend_hygiene                     uint16    quantitative(continuous)   Total lifetime spend on hygiene products.
+16  lifetime_spend_petfood                     uint16    quantitative(continuous)   Total lifetime spend on pet food.
+17  lifetime_spend_videogames                  uint16    quantitative(continuous)   Total lifetime spend on video games.
+18  lifetime_total_distinct_products           uint16    quantitative(discrete)     Number of distinct products bought over lifetime.
+19  percentage_of_products_bought_promotion    float16   quantitative(continuous)   Percentage of products bought under a promotion (0-1).
+20  year_first_transaction                     uint16    quantitative(discrete)     Year of the customer's first transaction of the cust.
+21  loyalty_card_number                        uint16    categorical(nominal)       Loyalty card number of the customer (0, 1).
+22  latitude                                   float32   quantitative(continuous)   Approximate latitude of the customer's home (<1km range).
+23  longitude                                  float32   quantitative(continuous)   Approximate longitude of the customer's home (<1km range).
+24  typical_hour                               uint8     quantitative(discrete)     Typical hour of the day when the customer visits the store.
