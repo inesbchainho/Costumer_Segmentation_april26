@@ -31,26 +31,11 @@ x   Column                                     Dtype     Variable Type          
 21  loyalty_card_number                        uint16    categorical(nominal)       Loyalty card number of the customer (0, 1). REMOVED
 22  latitude                                   float32   quantitative(continuous)   Approximate latitude of the customer's home (<1km range).
 23  longitude                                  float32   quantitative(continuous)   Approximate longitude of the customer's home (<1km range).
-24  typical_hour                               uint8     quantitative(discrete)     Typical hour of the day when the customer visits the store.
+24  typical_hour                               uint8     quantitative(discrete)     Typical hour of the day when the customer visits the store. REMOVED
 25  degree_num                                 uint8     quantitative(discrete)     Maximum level of education (0-"None", 1-"Bsc", 2-"Msc", 3-"Phd").
 26  is_female                                  uint8     quantitative(discrete)     If the customer is female (0, 1).
 27  age                                        uint8     quantitative(continuous)   Age of the customer when the analysis was made (June 2026).
 28  tenure                                     uint8     quantitative(continuous)   How many years ago was the customers' first transaction.
 29  has_loyalty_card                           uint8     quantitative(discrete)     If the customer has a loyalty card (0, 1).
-
-
-to_uint8 = ["kids_home", "teens_home", "number_complaints", "distinct_stores_visited", "typical_hour", "degree_num", "is_female", "age", "tenure", "has_loyalty_card"]
-to_uint16 = ["customer_id"]
-to_float_16 = ["lifetime_total_distinct_products"]
-to_float_32 = ["lifetime_spend_groceries", "lifetime_spend_electronics", "lifetime_spend_vegetables", "lifetime_spend_nonalcohol_drinks",
-               "lifetime_spend_alcohol_drinks", "lifetime_spend_meat", "lifetime_spend_fish", "lifetime_spend_hygiene", "lifetime_spend_videogames",
-               "lifetime_spend_petfood", "percentage_of_products_bought_promotion", "latitude", "longitude"]
-for col in to_uint8:
-    clean_df[col] = clean_df[col].astype("uint8")
-for col in to_uint16:
-    clean_df[col] = clean_df[col].astype("uint16")
-for col in to_float_16:
-    clean_df[col] = clean_df[col].astype("float16")
-for col in to_float_32:
-    clean_df[col] = clean_df[col].astype("float32")
-clean_df.info()
+30  typical_hour_sin
+31  typical_hour_cos

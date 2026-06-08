@@ -27,9 +27,13 @@ def preprocess_customer_info(df):
 
     df_clean["has_loyalty_card"] = df_clean["loyalty_card_number"].notna().astype(int) # we assume the null values are the lack of a loyalty card
 
+    df_clean["typical_hour_sin"] = np.sin(2 * np.pi * df_clean["typical_hour"] / 24)
+    df_clean["typical_hour_cos"] = np.cos(2 * np.pi * df_clean["typical_hour"] / 24)
+
     df_clean.loc[df_clean["percentage_of_products_bought_promotion"] < 0, "percentage_of_products_bought_promotion"] = np.nan
 
-    df_clean = df_clean.drop(columns=["customer_name", "degree", "customer_gender", "customer_birthdate", "year_first_transaction", "loyalty_card_number"])
+    df_clean = df_clean.drop(columns=["customer_name", "degree", "customer_gender", "customer_birthdate", "year_first_transaction", "loyalty_card_number",
+                                      "typical_hour"])
     
     return df_clean
     
