@@ -40,10 +40,5 @@ def fill_missing_values(df_clean):
     for col in numeric_cols:
         df_clean[col] = df_clean[col].fillna(df_clean[col].median())
     
-    spend_cols = ["lifetime_spend_groceries", "lifetime_spend_electronics", "lifetime_spend_vegetables", "lifetime_spend_nonalcohol_drinks", "lifetime_spend_alcohol_drinks",
-                  "lifetime_spend_meat", "lifetime_spend_fish", "lifetime_spend_hygiene", "lifetime_spend_videogames", "lifetime_spend_petfood"]
-    
-    df_clean["total_lifetime_spend"] = df_clean[spend_cols].sum(axis=1)
-    
     df_clean = df_clean.replace([np.inf, -np.inf], np.nan)
     return df_clean
