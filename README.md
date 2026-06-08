@@ -1,16 +1,16 @@
 # machine_learning_feb2026
 Project for Machine Learning II course | Group 9
 Authors: Inês Chainho & Pedro Ambar
-Dataset: Customer Segmentation Dataset
+Dataset: Customer Segmentation Dataset (33038 observations)
 Information: Demographics, spending behavior and purchasing history per customer
 Problem: Unsupervised Learning (K-Means, HDBSCAN, Association Rules, Visualization through PCA/UMAP)
 
 Variables — customer_info:
 x   Column                                     Dtype     Variable Type              Meaning
 0   customer_id                                uint16    categorical(nominal)       Unique identifier of the customer.
-1   customer_name                              str       categorical(nominal)       Name of the customer (contains degree level).
+1   customer_name                              str       categorical(nominal)       Name of the customer.
 2   customer_gender                            uint8     categorical(nominal)       Gender of the customer (0, 1).
-3   customer_birthdate                         float16   categorical(nominal)       Birth date of the customer (used to derive age).
+3   customer_birthdate                         float16   categorical(nominal)       Birth date of the customer.
 4   kids_home                                  uint8     quantitative(discrete)     Number of kids at home.
 5   teens_home                                 uint8     quantitative(discrete)     Number of teens at home.
 6   number_complaints                          uint8     quantitative(discrete)     Number of formal complaints made by the customer.
