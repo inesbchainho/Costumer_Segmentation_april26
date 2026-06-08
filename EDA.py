@@ -1,5 +1,13 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
+
+def print_highly_correlated_pairs(df, threshold=0.8):
+    corr_matrix = df.corr(method='spearman').abs()
+    high_corr = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
+    readable = (high_corr.stack().reset_index().rename(columns={'level_0': 'var1', 'level_1': 'var2', 0: 'corr'}))
+    high_pairs = readable[readable['corr'] > threshold]
+    print(high_pairs)
 
 def plot_feature_histograms(df, columns):
     colors = sns.color_palette("husl", len(columns))
