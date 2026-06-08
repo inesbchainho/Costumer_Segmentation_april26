@@ -37,3 +37,20 @@ x   Column                                     Dtype     Variable Type          
 27  age                                        uint8     quantitative(continuous)   Age of the customer when the analysis was made (June 2026).
 28  tenure                                     uint8     quantitative(continuous)   How many years ago was the customers' first transaction.
 29  has_loyalty_card                           uint8     quantitative(discrete)     If the customer has a loyalty card (0, 1).
+
+
+to_uint8 = ["kids_home", "teens_home", "number_complaints", "distinct_stores_visited", "typical_hour", "degree_num", "is_female", "age", "tenure", "has_loyalty_card"]
+to_uint16 = ["customer_id"]
+to_float_16 = ["lifetime_total_distinct_products"]
+to_float_32 = ["lifetime_spend_groceries", "lifetime_spend_electronics", "lifetime_spend_vegetables", "lifetime_spend_nonalcohol_drinks",
+               "lifetime_spend_alcohol_drinks", "lifetime_spend_meat", "lifetime_spend_fish", "lifetime_spend_hygiene", "lifetime_spend_videogames",
+               "lifetime_spend_petfood", "percentage_of_products_bought_promotion", "latitude", "longitude"]
+for col in to_uint8:
+    clean_df[col] = clean_df[col].astype("uint8")
+for col in to_uint16:
+    clean_df[col] = clean_df[col].astype("uint16")
+for col in to_float_16:
+    clean_df[col] = clean_df[col].astype("float16")
+for col in to_float_32:
+    clean_df[col] = clean_df[col].astype("float32")
+clean_df.info()
