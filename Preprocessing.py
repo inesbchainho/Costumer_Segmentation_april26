@@ -35,6 +35,8 @@ def preprocess_customer_info(df):
     
 
 def fill_missing_values(df_clean):
+    df_clean = df_clean.replace([np.inf, -np.inf], np.nan)
+
     numeric_cols = df_clean.select_dtypes(include = ["number"]).columns
 
     for col in numeric_cols:
