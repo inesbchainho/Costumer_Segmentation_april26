@@ -6,29 +6,29 @@ from mlxtend.preprocessing import TransactionEncoder
 
 def plot_top_products(exploded_basket, n_top=10):
     colors = list(plt.cm.tab10.colors)
-    cluster_ids = sorted(exploded_basket["cluster"].unique())
+    cluster_ids = sorted([int(c) for c in exploded_basket["cluster"].dropna().unique()])
     n_clusters = len(cluster_ids)
     
     n_cols = 2
     n_rows = (n_clusters + n_cols - 1) // n_cols
-    fig, axes = plt.subplots(n_rows, n_cols, figsize=(16, 8 * n_rows))
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(16, 6 * n_rows)) # 6*n_rows chega perfeitamente para barh
     axes = axes.flatten()
     
     for i, cluster_id in enumerate(cluster_ids):
         ax = axes[i]
         top_products = (exploded_basket[exploded_basket["cluster"] == cluster_id]["product"]
-                       .value_counts()
-                       .head(n_top))
-        top_products.plot(kind="barh", ax=ax, color=colors[cluster_id])
+                        .value_counts()
+                        .head(n_top))
+        top_products.plot(kind="barh", ax=ax, color=colors[i % len(colors)])
         ax.invert_yaxis()
         ax.set_title(f"Top Products for Cluster {cluster_id}", fontsize=12)
         ax.set_xlabel("Frequency")
         ax.set_ylabel("Product")
-    
+        
     for j in range(i + 1, len(axes)):
         fig.delaxes(axes[j])
     
-    plt.suptitle("Top Products per Cluster", fontsize=16)
+    plt.suptitle("Top Products per Cluster", fontsize=16, y=1.02)
     plt.tight_layout()
     plt.show()
 
