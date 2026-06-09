@@ -19,7 +19,7 @@ def preprocess_customer_info(df):
 
     df_clean["is_female"] = (df_clean["customer_gender"] == "female").astype(int)
     
-    df_clean["customer_birthdate"] = pd.to_datetime(df_clean["customer_birthdate"], format="%m/%d/%Y %I:%M %p", errors="coerce")
+    df_clean["customer_birthdate"] = pd.to_datetime(df_clean["customer_birthdate"], format = "%m/%d/%Y %I:%M %p", errors = "coerce")
     reference_date = pd.Timestamp("2026-06-01")
     df_clean["age"] = ((reference_date - df_clean["customer_birthdate"]).dt.days / 365.25)
     df_clean.loc[(df_clean["age"] < 16) | (df_clean["age"] > 100), "age"] = np.nan
@@ -34,7 +34,7 @@ def preprocess_customer_info(df):
 
     df_clean.loc[df_clean["percentage_of_products_bought_promotion"] < 0, "percentage_of_products_bought_promotion"] = np.nan
 
-    df_clean = df_clean.drop(columns=["customer_name", "degree", "customer_gender", "customer_birthdate", "year_first_transaction", "loyalty_card_number",
+    df_clean = df_clean.drop(columns = ["customer_name", "degree", "customer_gender", "customer_birthdate", "year_first_transaction", "loyalty_card_number",
                                       "typical_hour"])
     
     return df_clean
@@ -53,14 +53,14 @@ def fill_missing_values(df_clean):
 
 
 def plot_correlation_heatmap(df):
-    plt.figure(figsize=(16, 12))
+    plt.figure(figsize = (16, 12))
     sns.heatmap(
-        df.select_dtypes(include="number").corr(),
-        cmap=sns.diverging_palette(220, 20, as_cmap=True),
-        center=0,
-        annot=False,
+        df.select_dtypes(include = "number").corr(),
+        cmap = sns.diverging_palette(220, 20, as_cmap = True),
+        center = 0,
+        annot = False,
         linewidths=0.5
     )
-    plt.title("Correlation Matrix", fontsize=14)
+    plt.title("Correlation Matrix", fontsize = 14)
     plt.tight_layout()
     plt.show()
