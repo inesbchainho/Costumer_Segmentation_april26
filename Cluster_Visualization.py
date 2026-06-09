@@ -49,8 +49,8 @@ def plot_cluster_boxplots(df, labels, features):
     for j in range(i + 1, len(axes)):
         fig.delaxes(axes[j])
     
-    plt.title("Feature Distribution by Cluster", fontsize = 14)
-    plt.tight_layout()
+    fig.suptitle("Feature Distribution by Cluster", fontsize = 14)
+    plt.tight_layout(rect = [0, 0, 1, 0.96])
     plt.show()
 
 
