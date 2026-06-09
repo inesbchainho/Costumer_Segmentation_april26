@@ -4,21 +4,31 @@ from mlxtend.frequent_patterns import apriori, association_rules
 from mlxtend.preprocessing import TransactionEncoder
 
 
-def plot_top_products(exploded_basket, n_top = 10):
+def plot_top_products(exploded_basket, n_top=10):
     colors = list(plt.cm.tab10.colors)
+    cluster_ids = sorted(exploded_basket["cluster"].unique())
+    n_clusters = len(cluster_ids)
     
-    n_clusters = exploded_basket["cluster"].nunique()
-    fig, axes = plt.subplots(1, n_clusters, figsize = (24, 8))
+    n_cols = 2
+    n_rows = (n_clusters + n_cols - 1) // n_cols
+    fig, axes = plt.subplots(n_rows, n_cols, figsize=(16, 8 * n_rows))
+    axes = axes.flatten()
     
-    for cluster_id in sorted(exploded_basket["cluster"].unique()):
-        ax = axes[cluster_id]
-        top_products = (exploded_basket[exploded_basket["cluster"] == cluster_id]["product"].value_counts().head(n_top))
-        top_products.plot(kind = "barh", ax = ax, color = colors[cluster_id])
+    for i, cluster_id in enumerate(cluster_ids):
+        ax = axes[i]
+        top_products = (exploded_basket[exploded_basket["cluster"] == cluster_id]["product"]
+                       .value_counts()
+                       .head(n_top))
+        top_products.plot(kind="barh", ax=ax, color=colors[cluster_id])
         ax.invert_yaxis()
-        ax.set_title(f"Top Products for Cluster {cluster_id}", fontsize = 12)
+        ax.set_title(f"Top Products for Cluster {cluster_id}", fontsize=12)
         ax.set_xlabel("Frequency")
         ax.set_ylabel("Product")
     
+    for j in range(i + 1, len(axes)):
+        fig.delaxes(axes[j])
+    
+    plt.suptitle("Top Products per Cluster", fontsize=16)
     plt.tight_layout()
     plt.show()
 
