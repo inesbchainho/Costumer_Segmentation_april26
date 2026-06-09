@@ -38,7 +38,7 @@ def plot_cluster_boxplots(df, labels, features):
     axes = axes.flatten()
     
     for i, col in enumerate(features):
-        sns.boxplot(data=df_plot, x="cluster", y=col, palette=palette, ax=axes[i])
+        sns.boxplot(data=df_plot, x="cluster", y=col, hue="cluster", palette=palette, legend=False, ax=axes[i])
         axes[i].set_title(col, fontsize=10)
         axes[i].set_xlabel("Cluster")
         axes[i].set_ylabel("")
