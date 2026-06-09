@@ -53,12 +53,10 @@ def fill_missing_values(df_clean):
 
 
 def plot_correlation_heatmap(df):
-    colors = list(plt.cm.tab10.colors)
-    
     plt.figure(figsize=(16, 12))
     sns.heatmap(
         df.select_dtypes(include="number").corr(),
-        cmap="coolwarm",
+        cmap=sns.diverging_palette(220, 20, as_cmap=True),
         center=0,
         annot=False,
         linewidths=0.5
