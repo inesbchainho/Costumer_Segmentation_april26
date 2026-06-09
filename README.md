@@ -1,9 +1,7 @@
 # machine_learning_feb2026
 Project for Machine Learning II course | Group 9
 Authors: Inês Chainho & Pedro Ambar
-Dataset: Customer Segmentation Dataset (33038 observations)
-Information: Demographics, spending behavior and purchasing history per customer
-Problem: Unsupervised Learning (K-Means, HDBSCAN, Association Rules, Visualization through PCA/UMAP)
+Problem: 33038 Customers Segmentation and Cluster Profiling Using Unsupervized Learning Algorithms
 
 Variables — customer_info:
 x   Column                                     Dtype     Variable Type              Meaning
@@ -37,5 +35,5 @@ x   Column                                     Dtype     Variable Type          
 27  age                                        uint8     quantitative(continuous)   Age of the customer when the analysis was made (June 2026).
 28  tenure                                     uint8     quantitative(continuous)   How many years ago was the customers' first transaction.
 29  has_loyalty_card                           uint8     quantitative(discrete)     If the customer has a loyalty card (0, 1).
-30  typical_hour_sin
-31  typical_hour_cos
+30  typical_hour_sin                           float64   quantitative(continuous)   Typical hour of the day when the customer visits the store.
+31  typical_hour_cos                           float64   quantitative(continuous)   Typical hour of the day when the customer visits the store.
