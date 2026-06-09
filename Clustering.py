@@ -1,12 +1,10 @@
-import numpy as np
-import seaborn as sns
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
-from sklearn.preprocessing import MinMaxScaler
 
-cor = '#3ecae3'
+cor = '#2a77af'
 
 def find_optimal_k(df, k_min, k_max):
     k_range = range(k_min, k_max)
@@ -42,24 +40,24 @@ def plot_pca_k_grid(robust_features, variance_range, k_range, random_state=42):
     results = []
 
     for var in variance_range:
-        pca = PCA(n_components=var, random_state=random_state)
+        pca = PCA(n_components = var, random_state = random_state)
         pca_features = pca.fit_transform(robust_features)
         for k in k_range:
-            labels = KMeans(n_clusters=k, random_state=random_state).fit_predict(pca_features)
+            labels = KMeans(n_clusters = k, random_state = random_state).fit_predict(pca_features)
             score = silhouette_score(pca_features, labels)
             results.append({"variance": var, "k": k, "silhouette": score})
 
     results_df = pd.DataFrame(results)
-    pivot = results_df.pivot(index="k", columns="variance", values="silhouette")
+    pivot = results_df.pivot(index = "k", columns = "variance", values = "silhouette")
 
-    fig, ax = plt.subplots(figsize=(12, 6))
+    fig, ax = plt.subplots(figsize = (12, 6))
     for var in variance_range:
-        ax.plot(pivot.index, pivot[var], marker="o", label=f"var={var}")
+        ax.plot(pivot.index, pivot[var], marker = "o", label = f"var={var}")
 
     ax.set_xlabel("Number of Clusters (k)")
     ax.set_ylabel("Silhouette Score")
     ax.set_title("Silhouette Score by k and PCA Variance Retained")
-    ax.legend(title="Variance Retained", bbox_to_anchor=(1.05, 1), loc="upper left")
+    ax.legend(title = "Variance Retained", bbox_to_anchor = (1.05, 1), loc = "upper left")
     ax.set_xticks(k_range)
     plt.tight_layout()
     plt.show()
