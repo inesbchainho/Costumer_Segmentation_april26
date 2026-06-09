@@ -27,6 +27,38 @@ def plot_pca_2d(robust_features, labels, random_state = 42):
     plt.show()
 
 
+def plot_cluster_sizes(df, cluster_col='cluster'):
+    
+    cluster_pct = (
+        df[cluster_col]
+        .value_counts(normalize=True)
+        .sort_index() * 100
+    )
+
+    colors = list(plt.cm.tab10.colors)
+    palette = {
+        cluster_id: colors[cluster_id]
+        for cluster_id in sorted(df[cluster_col].unique())
+    }
+
+    ax = cluster_pct.plot(
+        kind='bar',
+        figsize=(8, 5),
+        color=[palette[c] for c in cluster_pct.index]
+    )
+
+    plt.title('Customer Distribution by Cluster')
+    plt.xlabel('Cluster')
+    plt.ylabel('Percentage of Customers (%)')
+
+    for i, value in enumerate(cluster_pct):
+        ax.text(i, value + 0.5, f'{value:.1f}%', ha='center')
+
+    plt.tight_layout()
+    plt.show()
+
+
+
 def plot_cluster_boxplots(df, labels, features):
     colors = list(plt.cm.tab10.colors)
     palette = {cluster_id: colors[cluster_id] for cluster_id in sorted(np.unique(labels))}
