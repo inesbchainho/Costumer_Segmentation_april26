@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from mlxtend.frequent_patterns import apriori, association_rules
 from mlxtend.preprocessing import TransactionEncoder
 
+
 def plot_top_products(exploded_basket, n_top = 10):
     colors = list(plt.cm.tab10.colors)
     
@@ -11,9 +12,7 @@ def plot_top_products(exploded_basket, n_top = 10):
     
     for cluster_id in sorted(exploded_basket["cluster"].unique()):
         ax = axes[cluster_id]
-        top_products = (exploded_basket[exploded_basket["cluster"] == cluster_id]["product"]
-                       .value_counts()
-                       .head(n_top))
+        top_products = (exploded_basket[exploded_basket["cluster"] == cluster_id]["product"].value_counts().head(n_top))
         top_products.plot(kind = "barh", ax = ax, color = colors[cluster_id])
         ax.invert_yaxis()
         ax.set_title(f"Top Products for Cluster {cluster_id}", fontsize = 12)
@@ -24,18 +23,11 @@ def plot_top_products(exploded_basket, n_top = 10):
     plt.show()
 
 
-def basket_analysis(exploded_basket, min_support = 0.01, min_threshold = 1.0, top_n = 10):
-    """
-    Runs Apriori and association rules per cluster.
-    Returns dict {cluster_id: rules_df}
-    """
+def basket_analysis(exploded_basket, min_support = 0.01, min_threshold = 1.0):
     rules_by_cluster = {}
     
     for cluster_id in sorted(exploded_basket["cluster"].unique()):
-        cluster_baskets = (exploded_basket[exploded_basket["cluster"] == cluster_id]
-                          .groupby("invoice_id")["product"]
-                          .apply(list)
-                          .tolist())
+        cluster_baskets = (exploded_basket[exploded_basket["cluster"] == cluster_id].groupby("invoice_id")["product"].apply(list).tolist())
         
         te = TransactionEncoder()
         te_array = te.fit_transform(cluster_baskets)
@@ -68,8 +60,7 @@ def plot_association_rules(rules_by_cluster, top_n = 10):
         rules = rules_by_cluster[cluster_id]
         top_rules = rules.nlargest(top_n, "lift")
         
-        labels = [f"{', '.join(list(a))} → {', '.join(list(c))}" 
-                  for a, c in zip(top_rules["antecedents"], top_rules["consequents"])]
+        labels = [f"{', '.join(list(a))} → {', '.join(list(c))}" for a, c in zip(top_rules["antecedents"], top_rules["consequents"])]
         
         ax.barh(range(len(labels)), top_rules["lift"].values, color = colors[cluster_id])
         ax.set_yticks(range(len(labels)))
@@ -82,5 +73,5 @@ def plot_association_rules(rules_by_cluster, top_n = 10):
         fig.delaxes(axes[j])
     
     plt.suptitle("Top Association Rules per Cluster", fontsize = 16)
-    plt.tight_layout()
+    plt.tight_layout(rect = [0, 0, 1, 0.96])
     plt.show()

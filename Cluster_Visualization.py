@@ -3,8 +3,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import MinMaxScaler
-
 cor = '#2a77af'
+
 
 def plot_pca_2d(robust_features, labels, random_state = 42):
     pca_2d = PCA(n_components = 2, random_state = random_state)
@@ -15,14 +15,32 @@ def plot_pca_2d(robust_features, labels, random_state = 42):
     
     for cluster_id in sorted(np.unique(labels)):
         mask = labels == cluster_id
-        ax.scatter(coords[mask, 0], coords[mask, 1], 
-                   c = [colors[cluster_id]], label = f"Cluster {cluster_id}", 
-                   alpha = 0.4, s = 10)
+        ax.scatter(coords[mask, 0], coords[mask, 1], c = [colors[cluster_id]], label = f"Cluster {cluster_id}", alpha = 0.4, s = 10)
     
     ax.set_title("PCA 2D Projection — Customer Clusters")
     ax.set_xlabel("PC1")
     ax.set_ylabel("PC2")
     ax.legend(title = "Cluster", markerscale = 2)
+    plt.tight_layout()
+    plt.show()
+
+
+def plot_cluster_sizes(df, cluster_col='cluster'):
+    
+    cluster_pct = (df[cluster_col].value_counts(normalize=True).sort_index() * 100 )
+
+    colors = list(plt.cm.tab10.colors)
+    palette = {cluster_id: colors[cluster_id] for cluster_id in sorted(df[cluster_col].unique())}
+
+    ax = cluster_pct.plot(kind = 'bar', figsize = (8, 5), color=[palette[c] for c in cluster_pct.index])
+
+    plt.title('Customer Distribution by Cluster')
+    plt.xlabel('Cluster')
+    plt.ylabel('Percentage of Customers (%)')
+
+    for i, value in enumerate(cluster_pct):
+        ax.text(i, value + 0.5, f'{value:.1f}%', ha = 'center')
+
     plt.tight_layout()
     plt.show()
 
@@ -40,8 +58,7 @@ def plot_cluster_boxplots(df, labels, features):
     axes = axes.flatten()
     
     for i, col in enumerate(features):
-        sns.boxplot(data=df_plot, x = "cluster", y = col, hue = "cluster", 
-                    palette=palette, legend=False, fliersize = 0, ax = axes[i])
+        sns.boxplot(data = df_plot, x = "cluster", y = col, hue = "cluster", palette = palette, legend=False, fliersize = 0, ax = axes[i])
         axes[i].set_title(col.replace("_", " ").title(), fontsize = 10)
         axes[i].set_xlabel("Cluster")
         axes[i].set_ylabel("")

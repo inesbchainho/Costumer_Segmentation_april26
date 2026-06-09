@@ -4,6 +4,7 @@ import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 def preprocess_customer_info(df):
     """
     Cleans customer_info and creates additional features for customer segmentation.
@@ -54,13 +55,8 @@ def fill_missing_values(df_clean):
 
 def plot_correlation_heatmap(df):
     plt.figure(figsize = (16, 12))
-    sns.heatmap(
-        df.select_dtypes(include = "number").corr(),
-        cmap = sns.diverging_palette(220, 20, as_cmap = True),
-        center = 0,
-        annot = False,
-        linewidths=0.5
-    )
+    sns.heatmap(df.select_dtypes(include = "number").corr(), cmap = sns.diverging_palette(220, 20, as_cmap = True), center = 0, annot = False,
+                linewidths=0.5)
     plt.title("Correlation Matrix", fontsize = 14)
     plt.tight_layout()
     plt.show()
