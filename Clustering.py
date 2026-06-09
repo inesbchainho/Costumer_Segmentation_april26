@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
@@ -65,9 +66,16 @@ def plot_pca_k_grid(robust_features, variance_range, k_range, random_state=42):
     plt.show()
 
 
-def kmeans_model(k, robust_features, var):
+def kmeans_model(k, robust_features, var, df):
     pca = PCA(n_components = var, random_state = 42)
     pca_features = pca.fit_transform(robust_features)
     kmeans = KMeans(n_clusters = k, random_state = 42)
     labels = kmeans.fit_predict(pca_features)
+    # remap labels to be stable across runs
+    # order clusters by mean age (ascending = youngest first)
+    temp_df = df.copy()
+    temp_df["cluster"] = labels
+    order = temp_df.groupby("cluster")["age"].mean().sort_values().index
+    remap = {old: new for new, old in enumerate(order)}
+    labels = np.array([remap[l] for l in labels])
     return labels
