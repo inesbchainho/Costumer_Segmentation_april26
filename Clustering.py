@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 from sklearn.decomposition import PCA
-
 cor = '#2a77af'
+
 
 def find_optimal_k(df, k_min, k_max):
     k_range = range(k_min, k_max)
@@ -18,6 +18,7 @@ def find_optimal_k(df, k_min, k_max):
         inertia.append(model.inertia_)
         # print(f"k={k}, silhouette={sil_score:.4f}, inertia={model.inertia_:.0f}")
     return list(k_range), silhouette_scores, inertia
+
 
 def plot_kmeans_scores(k_range, silhouette_scores, inertia_scores):
     plt.figure(figsize = (12, 4))
@@ -35,6 +36,7 @@ def plot_kmeans_scores(k_range, silhouette_scores, inertia_scores):
     plt.ylabel("Inertia")
     plt.tight_layout()
     plt.show()
+
 
 def plot_pca_k_grid(robust_features, variance_range, k_range, random_state=42):
     results = []
@@ -61,6 +63,7 @@ def plot_pca_k_grid(robust_features, variance_range, k_range, random_state=42):
     ax.set_xticks(k_range)
     plt.tight_layout()
     plt.show()
+
 
 def kmeans_model(k, robust_features, var):
     pca = PCA(n_components = var, random_state = 42)
